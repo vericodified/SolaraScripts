@@ -195,7 +195,7 @@ key = MewoMewoMewo
 
     <h3 class="flex flex-row items-center"><div class="bg-[#00FF3C]/70 mb-0.5 mr-2 rounded-full w-3 h-3 shadow-[1px_1px_10px_#00C950]"></div>Are these scripts only solara supported?</h3>
     <p>A: These scripts are supported by Solara and executors better than Solara.</p>
-     
+      
     <h3 class="flex flex-row items-center"><div class="bg-[#00FF3C]/70 mb-0.5 mr-2 rounded-full w-3 h-3 shadow-[1px_1px_10px_#00C950]"></div>Will some scripts go down?</h3>
     <p>A: When a script goes down, we mark it with a red. It either means patched or
       currently down. A script is live when it is marked with green. Yellow marking means we will replace the script.</p>
@@ -223,29 +223,30 @@ key = MewoMewoMewo
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('button img[src="copy.svg"]').forEach(img => {
-        const button = img.parentElement;
+      document.querySelectorAll('button').forEach(button => {
+        if (!button.querySelector('img[src*="copy"]')) {
+          const img = button.querySelector('img');
+          if (img && img.src.includes('data:image/svg+xml') && img.src.includes('M360-240')) {
+            button.addEventListener('click', () => {
+              const container = button.closest('.flex.flex-col');
+              if (!container) return;
 
-        button.addEventListener('click', () => {
-          const container = button.closest('.flex.w-\\[calc\\(100\\%-60px\\)\\]');
-          if (!container) return;
+              const codeElement = container.querySelector('code');
+              if (!codeElement) return;
 
-          const codeElement = container.querySelector('code');
-          if (!codeElement) return;
+              const textToCopy = codeElement.innerText.trim();
 
-          const textToCopy = codeElement.innerText.trim();
-
-          navigator.clipboard.writeText(textToCopy).then(() => {
-            
-            button.classList.add('bg-green-500');
-
-            setTimeout(() => {
-              button.classList.remove('bg-green-500');
-            }, 2000);
-          }).catch(err => {
-            console.error('Copy failed: ', err);
-          });
-        });
+              navigator.clipboard.writeText(textToCopy).then(() => {
+                button.classList.add('bg-green-500');
+                setTimeout(() => {
+                  button.classList.remove('bg-green-500');
+                }, 2000);
+              }).catch(err => {
+                console.error('Copy failed: ', err);
+              });
+            });
+          }
+        }
       });
     });
 
