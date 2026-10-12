@@ -47,8 +47,8 @@
       background-size: cover;
     }
     </style>
-    <script type="module" crossorigin src="./assets/index-xEm-Q6CD.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DlSnrrgF.css">
+    <script type="module" crossorigin src="./assets/index-VenzkkWO.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DrWylsp7.css">
   </head>
 
 
@@ -129,10 +129,10 @@
     <div class="flex-col flex items-center">
       <div class="flex w-[calc(100%-60px)] h-fit mt-10 flex-col text-white">
         <div class="flex flex-row">
-        <h3 class="text-2xl items-center flex flex-row">Rivals <div class="bg-[#ff0000]/70 rounded-full w-3 ml-2 mt-1 h-3 shadow-[1px_1px_10px_#ff0000]"></div></h3><h3 class="text-2xl flex ml-auto">Soluna</h3>
+        <h3 class="text-2xl items-center flex flex-row">Rivals <div class="bg-[#00FF3C]/70 rounded-full w-3 ml-2 mt-1 h-3 shadow-[1px_1px_10px_#00C950]"></div></h3><h3 class="text-2xl flex ml-auto">Soluna</h3>
         </div>
         <div class="mt-3 bg-[#212121]/40 w-full backdrop-blur-[200px] rounded-2xl h-auto py-4 px-3">
-          <code class="language-lua h-fit">loadstring(game:HttpGet('https://soluna-script.vercel.app/main.lua',true))()
+          <code class="language-lua h-fit">loadstring(game:HttpGet("https://gitlab.com/soluna-development/api/-/raw/main/src/scripts/Rivals/Classic.lua"))()
           </code>
         </div>
         <div class="flex-row h-fit flex mt-3">
@@ -172,7 +172,7 @@ key = MewoMewoMewo
 
       <div class="flex w-[calc(100%-60px)] h-fit mt-10 flex-col text-white">
         <div class="flex flex-row">
-        <h3 class="text-2xl items-center flex flex-row">Flick <div class="bg-[#00FF3C]/70 rounded-full w-3 ml-2 mt-1 h-3 shadow-[1px_1px_10px_#00C950]"></div></h3><h3 class="text-2xl flex ml-auto">LuWare</h3>
+        <h3 class="text-2xl items-center flex flex-row">Flick <div class="bg-[#ff0000]/70 rounded-full w-3 ml-2 mt-1 h-3 shadow-[1px_1px_10px_#ff0000]"></div></h3><h3 class="text-2xl flex ml-auto">LuWare</h3>
         </div>
         <div class="mt-3 bg-[#212121]/40 w-full backdrop-blur-[200px] rounded-2xl h-auto py-4 px-3">
           <code class="language-lua h-fit">loadstring(game:HttpGet("https://raw.githubusercontent.com/DoliScriptz/LuWare/refs/heads/main/main.lua"))()
@@ -195,7 +195,7 @@ key = MewoMewoMewo
 
     <h3 class="flex flex-row items-center"><div class="bg-[#00FF3C]/70 mb-0.5 mr-2 rounded-full w-3 h-3 shadow-[1px_1px_10px_#00C950]"></div>Are these scripts only solara supported?</h3>
     <p>A: These scripts are supported by Solara and executors better than Solara.</p>
-      
+     
     <h3 class="flex flex-row items-center"><div class="bg-[#00FF3C]/70 mb-0.5 mr-2 rounded-full w-3 h-3 shadow-[1px_1px_10px_#00C950]"></div>Will some scripts go down?</h3>
     <p>A: When a script goes down, we mark it with a red. It either means patched or
       currently down. A script is live when it is marked with green. Yellow marking means we will replace the script.</p>
@@ -223,29 +223,34 @@ key = MewoMewoMewo
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Target buttons containing a copy icon (matches both external copy.svg and inline base64 SVGs)
       document.querySelectorAll('button').forEach(button => {
-        if (!button.querySelector('img[src*="copy"]')) {
-          const img = button.querySelector('img');
-          if (img && img.src.includes('data:image/svg+xml') && img.src.includes('M360-240')) {
-            button.addEventListener('click', () => {
-              const container = button.closest('.flex.flex-col');
-              if (!container) return;
+        const img = button.querySelector('img');
+        if (
+          img && 
+          (img.src.includes('copy.svg') || (img.src.includes('data:image/svg+xml') && img.src.includes('M360-240')))
+        ) {
+          button.addEventListener('click', () => {
+            // Find the parent container holding both the code block and copy button
+            const container = button.closest('.flex.flex-col');
+            if (!container) return;
 
-              const codeElement = container.querySelector('code');
-              if (!codeElement) return;
+            const codeElement = container.querySelector('code');
+            if (!codeElement) return;
 
-              const textToCopy = codeElement.innerText.trim();
+            const textToCopy = codeElement.innerText.trim();
 
-              navigator.clipboard.writeText(textToCopy).then(() => {
-                button.classList.add('bg-green-500');
-                setTimeout(() => {
-                  button.classList.remove('bg-green-500');
-                }, 2000);
-              }).catch(err => {
-                console.error('Copy failed: ', err);
-              });
+            navigator.clipboard.writeText(textToCopy).then(() => {
+              // Highlight button background temporarily to confirm copy
+              button.classList.add('bg-green-500');
+
+              setTimeout(() => {
+                button.classList.remove('bg-green-500');
+              }, 2000);
+            }).catch(err => {
+              console.error('Copy failed: ', err);
             });
-          }
+          });
         }
       });
     });
@@ -256,24 +261,23 @@ key = MewoMewoMewo
     const bgd = document.getElementById('backgrounddisabler');
 
     close_button.onclick = () => {
-        sidebar.style.transform = 'translateX(220px)'
-        bgd.style.display = 'none'
+        sidebar.style.transform = 'translateX(220px)';
+        bgd.style.display = 'none';
         setTimeout(() => {
           sidebar.style.position = 'fixed';
           sidebar.style.display = 'none';
         }, 100);
-    }
+    };
 
     menu_button.onclick = () => {
-        bgd.style.display = 'block'
+        bgd.style.display = 'block';
         sidebar.style.position = 'fixed';
         sidebar.style.display = 'block';
 
         setTimeout(() => {
-          sidebar.style.transform = 'translateX(-220px)'
+          sidebar.style.transform = 'translateX(-220px)';
         }, 100);
-      }
-
+    };
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
